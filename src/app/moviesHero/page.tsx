@@ -1,9 +1,9 @@
 'use client';
 import type React from 'react';
-import { useGetMoviesPopularysQuery } from '@/redux/api/moviesPopularysApi';
+import { useGetMoviesPopularysQuery } from '@/redux/api/moviesBaseApi';
 import styles from './index.module.scss';
 
-import { IMovies } from '@/types/Imovies';
+import { IMoviesPopularys } from '@/types/ImoviesPopularys';
 
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -13,7 +13,7 @@ import Head from 'next/head';
 
 <Head>title: 'Movies', description: 'movie slider',</Head>;
 
-const Movies = () => {
+const MoviesHero = () => {
   const { data, error, isLoading } = useGetMoviesPopularysQuery();
   if (isLoading) {
     return <div>Loading...</div>;
@@ -35,7 +35,7 @@ const Movies = () => {
   return (
     <>
       <Slider {...settings}>
-        {data?.items?.map((movie: IMovies) => (
+        {data?.items?.map((movie: IMoviesPopularys) => (
           <Link className={styles.link} href={`/movie/${movie.imdbId}`}>
             <div className={styles.poster}>
               <img className={styles.posterImage} src={movie.posterUrl} alt={movie.nameOriginal} />
@@ -49,4 +49,4 @@ const Movies = () => {
   );
 };
 
-export default Movies;
+export default MoviesHero;

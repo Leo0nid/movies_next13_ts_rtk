@@ -1,10 +1,14 @@
 export interface IMovies {
   items: [],
-  imdbId: string,
-  nameOriginal: string,
-  posterUrl: string,
-  posterUrlPreview: string,
-  ratingImdb: number,
-  year: number,
-  
+  kinopoiskId: number;
+  nameRu: string;
+  posterUrl: string;
+  ratingKinopoisk: number;
+  year: number;
+  filmLength: number;
+  slogan: string;
+  description: string;
+  shortDescription: string;
+  countries: string;
+  genres: string;
 }
