@@ -1,16 +1,17 @@
+
 .cards {
   display: inline-block;
   transition: transform 0.2s;
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  margin: 0.19rem;
   cursor: pointer;
   max-width: 200px;
   height: 300px;
   z-index: 0;
   border: 1px solid rgb(99, 99, 99);
   margin-top: 10px;
+  margin-left: 2px;
 
   &:hover {
     transform: scale(1.2);
@@ -26,12 +27,12 @@
 
   &Overlay {
     position: absolute;
-    padding: 0 1rem 1rem 1rem;
+    padding: 0 7px 7px 7px;
     bottom: 0px;
     height: 290px;
     display: flex;
     flex-direction: column;
-    width: 85%;
+    width: 100%;
     justify-content: flex-end;
     background-image: linear-gradient(rgb(0, 0, 0, 0), rgb(0, 0, 0, 1));
     opacity: 0;
@@ -42,24 +43,44 @@
     opacity: 1;
   }
 
-  &Title {
+  &Name {
+    color: rgb(238, 220, 220);
     font-weight: 900;
     font-size: 16px;
-    margin-bottom: 16px;
+    margin-bottom: 2px;
   }
 
-  &Runtime {
-    font-size: 16px;
+  &Year {
+    font-size: 12px;
     margin-bottom: 16px;
+    color: rgb(238, 220, 220);
+
   }
 
   &Rating {
+    color: rgb(238, 220, 220);
     float: right;
+    font-size: 12px;
   }
+}
+.pagination{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  font-size: 21px;
+  &Button{
+    display: flex;
+    align-items: center;
+    color: white;
+    margin-left: 15px;
+    &:hover {
+      transform: scale(1.1);
+      transition: 0.2s;
+    }
 
-  &Description {
-    font-style: italic;
-    font-size: 16px;
-    margin-bottom: 16px;
+    
   }
+ 
+  
 }

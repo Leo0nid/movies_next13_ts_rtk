@@ -16,11 +16,11 @@ export const movieBaseApi = createApi({
   }),
 
   endpoints: (builder) => ({
-    getMoviesPopularys: builder.query<IMoviesPopularys, void>({
-      query: () => '/films/collections?type=TOP_POPULAR_ALL&page=1',
+    getMoviesPopularys: builder.query<IMoviesPopularys,  void>({
+      query: () => '/films/collections?type=TOP_POPULAR_ALL&page=2',
     }),
-    getMovies: builder.query<IMovies, void>({
-      query: () => '/films/premieres?year=2022&month=JANUARY',
+    getMovies: builder.query<IMovies, number | void>({
+      query: (page = 1) => `/films/collections?type=TOP_POPULAR_ALL&page=${page}`,
     }),
     
   }),
