@@ -3,6 +3,7 @@ export interface IMovies {
   kinopoiskId: number;
   nameRu: string;
   posterUrl: string;
+  posterUrlPreview: string,
   ratingKinopoisk: number;
   year: number;
   filmLength: number;
@@ -10,5 +11,5 @@ export interface IMovies {
   description: string;
   shortDescription: string;
   countries: string;
-  genres: string;
+  genre: string;
 }

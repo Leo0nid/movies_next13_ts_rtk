@@ -19,11 +19,14 @@ export const movieBaseApi = createApi({
     getMoviesPopularys: builder.query<IMoviesPopularys,  void>({
       query: () => '/films/collections?type=TOP_POPULAR_ALL&page=2',
     }),
-    getMovies: builder.query<IMovies, number | void>({
+    getMovies: builder.query<IMovies, number >({
       query: (page = 1) => `/films/collections?type=TOP_POPULAR_ALL&page=${page}`,
     }),
+    getMovieById: builder.query<IMovies, number | null > ( {
+      query: (id) => `/films/${id}`
+    })
     
   }),
 });
 
-export const { useGetMoviesPopularysQuery , useGetMoviesQuery } = movieBaseApi;
+export const { useGetMoviesPopularysQuery , useGetMoviesQuery ,useGetMovieByIdQuery } = movieBaseApi;
