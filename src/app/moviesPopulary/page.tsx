@@ -3,7 +3,11 @@ import React, { useState } from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 import styles from './index.module.scss';
-import { useGetMovieByIdQuery, useGetMoviesQuery } from '@/redux/api/moviesBaseApi';
+import {
+  useGetMovieByIdQuery,
+  useGetMovieBySearchQuery,
+  useGetMoviesQuery,
+} from '@/redux/api/moviesBaseApi';
 import { IMovies } from '@/types/Imovies';
 
 import { BiFirstPage } from 'react-icons/bi';
@@ -14,12 +18,8 @@ const MoviesPopulary = () => {
   const router = useRouter();
   //информация об одном  фильме
   const [selectedMovieId, setSelectedMovieId] = useState<number | null>(null);
-  const {
-    data: selectedMovieData,
-    error: selectedMovieError,
-    isLoading: selectedMovieLoading,
-  } = useGetMovieByIdQuery(selectedMovieId);
-  console.log(selectedMovieData);
+  useGetMovieByIdQuery(selectedMovieId);
+
   //выбранный фильм
   const handleMovieClick = (kinopoiskId: number) => {
     if (setSelectedMovieId) {
@@ -29,13 +29,14 @@ const MoviesPopulary = () => {
   };
   //пагинация
   const [page, setPage] = useState(1);
-  const { data, error, isLoading, isFetching } = useGetMoviesQuery(page);
+  const { data: popularyMovies, error, isLoading, isFetching } = useGetMoviesQuery(page);
 
+  
   if (isLoading) {
     return (
-      <div className={styles.cards}>
-        <SkeletonTheme baseColor="#202020" highlightColor="#44re4">
-          <Skeleton height={300} duration={2} />
+      <div className={styles.wrapper}>
+        <SkeletonTheme baseColor="#202020" highlightColor="#444">
+          <Skeleton className={styles.skeleton} count={20} height={300} width={200} duration={2} />
         </SkeletonTheme>
       </div>
     );
@@ -47,12 +48,12 @@ const MoviesPopulary = () => {
   return (
     <>
       <div className={styles.wrapper}>
-        {data?.items?.map((movie: IMovies) => (
+        {popularyMovies?.items?.map((movie: IMovies) => (
           <div
             key={movie?.kinopoiskId}
             className={styles.cards}
             onClick={() => handleMovieClick(movie.kinopoiskId)}>
-            <img className={styles.cardsImg} src={movie?.posterUrl} alt={data?.nameRu} />
+            <img className={styles.cardsImg} src={movie?.posterUrl} alt={popularyMovies?.nameRu} />
             <div className={styles.cardsOverlay}>
               <div className={styles.cardsName}>{movie?.nameRu}</div>
               <div className={styles.cardsYear}>
@@ -65,7 +66,7 @@ const MoviesPopulary = () => {
           </div>
         ))}
       </div>
-      {data ? (
+      {popularyMovies ? (
         <div className={styles.pagination}>
           <button
             className={styles.paginationButton}

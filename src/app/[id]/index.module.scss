@@ -1,65 +1,46 @@
 .movie {
-    &Wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 50px;
-        border: 1px solid white;
-        border-radius: 15px;
-        padding: 50px;
-        
-    
-    }
-    &Poster {
-        width:800px;
-        max-height: 900px;
-        border-radius: 10px;
-        box-shadow: rgba(0, 0, 0, 0.86) 0px 22px 40px 6px;
-        
-    }
-    &Img{
-        width: 100%;
-        height: 100%;
-    }
-    &Detail {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        margin-left: 50px;
-        color: white;
-        height: 300px;
-        
-    }
-    &Name {
-        font-weight: 600;
-        font-size: 36px;
-        
-        
-    }
-    &genre {
-        padding: 5px;
-        border: 2px solid white;
-        border-radius: 20px;
-        margin-right: 16px;
-    }
-    &desc {
-        font-size: 16px;
-        margin-bottom: 16px;
-        font-weight: 600;
-   
-    }
-    
-    
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  border: 1px solid white;
+  border-radius: 15px;
+  padding: 30px;
+
+  &Poster {
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.86) 0px 22px 40px 6px;
+  }
+  &Img {
+    max-width: 1200px;
+    max-height: 800px;
+  }
+  &Detail {
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+    color: white;
+    height: 510px;
+  }
+  &Main {
+    display: flex;
+    width: 250px;
+    justify-content: space-between;
+    margin-bottom: 50px;
+  }
+  &Name {
+    font-weight: 600;
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+  &Genre {
+    font-size: 16px;
+    color: white;
+  }
+  &Desc {
+    width: 300px;
+    font-size: 16px;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-

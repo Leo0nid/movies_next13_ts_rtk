@@ -24,9 +24,13 @@ export const movieBaseApi = createApi({
     }),
     getMovieById: builder.query<IMovies, number | null > ( {
       query: (id) => `/films/${id}`
-    })
-    
+    }),
+    getMovieBySearch: builder.query<IMovies, string | void >({
+      query:(keyword)=> `https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword=${keyword}`
+    }),
   }),
 });
 
-export const { useGetMoviesPopularysQuery , useGetMoviesQuery ,useGetMovieByIdQuery } = movieBaseApi;
+
+export const { useGetMoviesPopularysQuery , useGetMoviesQuery ,useGetMovieByIdQuery ,useGetMovieBySearchQuery } = movieBaseApi;
+

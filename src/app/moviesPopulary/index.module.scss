@@ -1,8 +1,13 @@
+.skeleton {
+  width: 200px;
+  height: 300px;
+}
 .wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  
 }
 .cards {
   transition: transform 0.2s;

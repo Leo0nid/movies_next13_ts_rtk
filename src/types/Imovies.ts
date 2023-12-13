@@ -11,5 +11,10 @@ export interface IMovies {
   description: string;
   shortDescription: string;
   countries: string;
+  genres: Genre[];
+  keyword: string
+}
+
+interface Genre {
   genre: string;
 }
