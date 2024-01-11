@@ -2,8 +2,11 @@
 import React from 'react';
 import styles from './index.module.scss';
 import { useGetMovieByIdQuery } from '@/redux/api/moviesBaseApi';
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+
 import { IoMdStarOutline } from 'react-icons/io';
+
+import { motion } from 'framer-motion';
+
 
 interface PageProps {
   params: {
@@ -12,18 +15,22 @@ interface PageProps {
 }
 
 const Details: React.FC<PageProps> = ({ params }) => {
-  const { data: selectedMovieData, error, isLoading } = useGetMovieByIdQuery(params.id);
-  if (isLoading) {
-    <SkeletonTheme baseColor="#202020" highlightColor="#444">
-      <Skeleton className={styles.wrapper} height={300} width={200} duration={2} />
-    </SkeletonTheme>;
-  }
+  const { data: selectedMovieData, error } = useGetMovieByIdQuery(params.id);
+
   if (error) {
     return <div>Ошибка: {}</div>;
   }
-
+  const variants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  };
   return (
-    <div className={styles.movie}>
+    <motion.div className={styles.movie} variants={variants} initial="hidden" animate="visible" transition={{
+      delay: 1,
+      ease: 'easeInOut',
+      duration: 0.5,
+      
+    }}>
       <div className={styles.moviePoster}>
         <img
           className={styles.movieImg}
@@ -33,6 +40,7 @@ const Details: React.FC<PageProps> = ({ params }) => {
       </div>
       <div className={styles.movieDetail}>
         <div className={styles.movieName}>{selectedMovieData?.nameRu}</div>
+            <div className={styles.MovieDesc}>{selectedMovieData?.description}</div>
         <div className={styles.movieMain}>
           <div className={styles.movieRating}>
             {selectedMovieData && selectedMovieData.ratingKinopoisk && (
@@ -55,9 +63,8 @@ const Details: React.FC<PageProps> = ({ params }) => {
               : ''}
           </div>
         </div>
-        <div className={styles.MovieDesc}>{selectedMovieData?.description}</div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

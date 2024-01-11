@@ -4,15 +4,37 @@ import styles from './index.module.scss';
 import Link from 'next/link';
 import Logo from '../../../public/IMDB_Logo_2016.svg.png';
 import Image from 'next/image';
-import { useState } from 'react';
 import { useGetMovieBySearchQuery } from '@/redux/api/moviesBaseApi';
-import MoviesPopulary from '@/app/moviesPopulary/page';
-import { useRouter } from 'next/router';
+import {  setSearchValue } from '@/redux/slices/searchSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react';
+
+
 
 const Header = () => {
-  const [searchValue, setSearchValue] = useState('');
-  const { data: singleProduct } = useGetMovieBySearchQuery(searchValue);
+  const router = useRouter();
+  const {searchValue} = useAppSelector((state) => state.search )
+  const dispatch = useAppDispatch();
 
+
+  //поисковик
+  const {data:searchResults} = useGetMovieBySearchQuery(searchValue);
+
+  useEffect(() => {
+    if(!searchResults || searchResults?.films?.length === 0) {
+      router.push('/')
+    }
+  }, [searchResults,router])
+
+  const onClickEnterSearch =(event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      router.push('/searchResults')
+      event.preventDefault();
+      
+  } 
+
+}
 
   return (
     <div className={styles.header}>
@@ -28,21 +50,25 @@ const Header = () => {
           {' '}
           Топ рейтинга
         </Link>
-        <Link className={styles.navLink} href="/upcoming">
+        <Link className={styles.navLink} href="/upComing">
           {' '}
           Предстоящие{' '}
         </Link>
+     
       </nav>
       <div className={styles.search}>
         <input
-          onChange={(e) => setSearchValue(e.target.value)}
+          onChange={(event) => dispatch(setSearchValue(event.target.value))}
+          onKeyDown={(event) => onClickEnterSearch(event)}
           className={styles.searchInput}
           value={searchValue}
           type="text"
           placeholder="Поиск.."
         />
       </div>
+
       
+
     </div>
   );
 };

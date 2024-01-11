@@ -1,0 +1,101 @@
+.skeleton {
+  width: 200px;
+  height: 300px;
+}
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.cards {
+  transition: transform 0.2s;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  max-width: 200px;
+  height: 300px;
+  z-index: 0;
+  border: 1px solid rgb(99, 99, 99);
+
+  margin-top: 10px;
+  margin-left: 10px;
+
+  &:hover {
+    transform: scale(1.2);
+    z-index: 1000;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px,
+      rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px,
+      rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  }
+
+  &Img {
+    height: 300px;
+  }
+
+  &Overlay {
+    position: absolute;
+    padding: 0 7px 7px 7px;
+    bottom: 0px;
+    height: 290px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: flex-end;
+    background-image: linear-gradient(rgb(0, 0, 0, 0), rgb(0, 0, 0, 1));
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  &Overlay:hover {
+    opacity: 1;
+  }
+
+  &Name {
+    color: rgb(238, 220, 220);
+    font-weight: 900;
+    font-size: 16px;
+    margin-bottom: 2px;
+  }
+
+  &Year {
+    font-size: 12px;
+    margin-bottom: 16px;
+    color: rgb(238, 220, 220);
+  }
+
+  &Rating {
+    color: rgb(238, 220, 220);
+    float: right;
+    font-size: 12px;
+  }
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: 20px auto;
+
+  font-size: 18px;
+
+  &Button {
+    display: flex;
+    align-items: center;
+    color: white;
+    margin-left: 15px;
+    &:hover {
+      transform: scale(1.1);
+      transition: 0.2s;
+    }
+  }
+}
+.select {
+  display: flex;
+  justify-content: center;
+
+  margin: 20px auto;
+  color: white;
+  font-size: 18px;
+
+}

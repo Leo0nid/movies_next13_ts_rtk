@@ -1,5 +1,7 @@
 import { IMoviesPopularys } from '@/types/ImoviesPopularys';
 import { IMovies } from '@/types/Imovies';
+import { IUpComing } from '@/types/IUpComing';
+import { ISearchProducts } from '@/types/ISearchProducts';
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
@@ -25,12 +27,15 @@ export const movieBaseApi = createApi({
     getMovieById: builder.query<IMovies, number | null > ( {
       query: (id) => `/films/${id}`
     }),
-    getMovieBySearch: builder.query<IMovies, string | void >({
+    getMovieBySearch: builder.query<ISearchProducts, string | void >({
       query:(keyword)=> `https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword=${keyword}`
+    }),
+    getMovieByUpComing: builder.query<IUpComing, { year: number | void , month: string | void } >({
+      query:({year,month})=> `https://kinopoiskapiunofficial.tech/api/v2.1/films/releases?year=${year}&month=${month}&page=1`
     }),
   }),
 });
 
 
-export const { useGetMoviesPopularysQuery , useGetMoviesQuery ,useGetMovieByIdQuery ,useGetMovieBySearchQuery } = movieBaseApi;
+export const { useGetMoviesPopularysQuery , useGetMoviesQuery ,useGetMovieByIdQuery ,useGetMovieBySearchQuery ,useGetMovieByUpComingQuery} = movieBaseApi;
 

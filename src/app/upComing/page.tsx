@@ -3,16 +3,21 @@ import React, { useState } from 'react';
 
 
 import styles from './index.module.scss';
-import { useGetMovieByIdQuery, useGetMoviesQuery } from '@/redux/api/moviesBaseApi';
-import { IMovies } from '@/types/Imovies';
+import {
+  useGetMovieByIdQuery,
+  useGetMovieByUpComingQuery,
+  useGetMoviesQuery,
+} from '@/redux/api/moviesBaseApi';
+
 
 import { BiFirstPage } from 'react-icons/bi';
 import { BiLastPage } from 'react-icons/bi';
 import { useRouter } from 'next/navigation';
+import Select from '@/components/select/Select';
+import { IUpComing } from '@/types/IUpComing';
+import { useAppSelector } from '@/redux/hooks/hooks';
 
-import { motion } from 'framer-motion';
-
-const MoviesPopulary: React.FC = () => {
+const upComing = () => {
   const router = useRouter();
   //информация об одном  фильме
   const [selectedMovieId, setSelectedMovieId] = useState<number | null>(null);
@@ -30,42 +35,40 @@ const MoviesPopulary: React.FC = () => {
   const { data: popularyMovies, error, isLoading, isFetching } = useGetMoviesQuery(page);
 
 
+// предстоящие 
+const {yearUpComing,monthUpComing} = useAppSelector((state) => state.upcoming )
+const {data:upComing} = useGetMovieByUpComingQuery()
 
-  if (error) {
-    return <div>Ошибка: {}</div>;
-  }
+console.log(yearUpComing);
 
-  const variants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
-  };
+ 
   return (
     <>
-      <div className={styles.wrapper} >
-        {popularyMovies?.items?.map((movie: IMovies,index) => (
-          <motion.div variants={variants} initial="hidden" animate="visible" transition={{
-            delay: index * 0.25,
-            ease: 'easeInOut',
-            duration: 0.5,
-            
-          }}
-            key={movie?.kinopoiskId}
+    <div className={styles.select}>
+    <Select/>
+
+    </div>
+ 
+      <div className={styles.wrapper}>
+        {upComing?.map((upComing: IUpComing) => (
+          <div
+            key={upComing?.kinopoiskId}
             className={styles.cards}
-            onClick={() => handleMovieClick(movie.kinopoiskId)}>
-            <img className={styles.cardsImg} src={movie?.posterUrl} alt={popularyMovies?.nameRu} />
+            onClick={() => handleMovieClick(upComing.kinopoiskId)}>
+            <img className={styles.cardsImg} src={upComing?.posterUrl} alt={popularyMovies?.nameRu} />
             <div className={styles.cardsOverlay}>
-              <div className={styles.cardsName}>{movie?.nameRu}</div>
+              <div className={styles.cardsName}>{upComing?.nameRu}</div>
               <div className={styles.cardsYear}>
-                {movie?.year}
+                {upComing?.year}
                 <span className={styles.cardsRating}>
-                  {movie?.filmLength} <i className="fas fa-star" />
+                  {upComing?.filmLength} <i className="fas fa-star" />
                 </span>
               </div>
             </div>
-            </motion.div>
+          </div>
         ))}
       </div>
-      {popularyMovies ? (
+      {upComing ? (
         <div className={styles.pagination}>
           <button
             className={styles.paginationButton}
@@ -90,4 +93,4 @@ const MoviesPopulary: React.FC = () => {
   );
 };
 
-export default MoviesPopulary;
+export default upComing;
